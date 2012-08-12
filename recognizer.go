@@ -1,7 +1,7 @@
 package chardet
 
 type recognizer interface {
-    Match(recognizerInput) recognizerOutput
+    Match(*recognizerInput) recognizerOutput
 }
 
 type recognizerOutput struct {

@@ -11,11 +11,14 @@ type Result struct {
 }
 
 type Detector struct {
-	recognizers []recognizer
+}
+
+// List of charset recognizers
+var recognizers = []recognizer {
+    new(recognizerUtf8),
 }
 
 func NewDetector() *Detector {
-    // Init recognizer
     return &Detector{}
 }
 
@@ -31,7 +34,19 @@ func (d *Detector) DetectBest(b []byte, stripTag bool, declaredCharset string) (
 	return
 }
 
+func matchHelper(r recognizer, input *recognizerInput, outputChan chan<- recognizerOutput) {
+    outputChan <- r.Match(input)
+}
+
 func (d *Detector) DetectAll(b []byte, stripTag bool, declaredCharset string) ([]Result, error) {
-	_ = newRecognizerInput(b, stripTag, declaredCharset)
+    input := newRecognizerInput(b, stripTag, declaredCharset)
+    outputChan := make(chan recognizerOutput)
+    for _, r := range recognizers {
+        go matchHelper(r, input, outputChan)
+    }
+    outputs := make([]recognizerOutput, 0, len(recognizers))
+    for i := 0; i < len(recognizers); i++ {
+        outputs = append(outputs, <-outputChan)
+    }
 	return nil, NotDetectedError
 }

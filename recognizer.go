@@ -4,11 +4,7 @@ type recognizer interface {
     Match(*recognizerInput) recognizerOutput
 }
 
-type recognizerOutput struct {
-    Charset string
-    Language string
-    Confidence uint32
-}
+type recognizerOutput Result
 
 type recognizerInput struct {
 	raw             []byte

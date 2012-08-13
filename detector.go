@@ -18,6 +18,10 @@ type Detector struct {
 // List of charset recognizers
 var recognizers = []recognizer{
 	new(recognizerUtf8),
+	new(recognizerUtf16be),
+	new(recognizerUtf16le),
+	newRecognizerUtf32be(),
+	newRecognizerUtf32le(),
 }
 
 func NewDetector() *Detector {

@@ -38,17 +38,17 @@ func (*recognizerUtf16le) Match(input *recognizerInput) (output recognizerOutput
 }
 
 type recognizerUtf32 struct {
-	name string
-	bom []byte
+	name       string
+	bom        []byte
 	decodeChar func(input []byte) rune
 }
 
 func decodeUtf32be(input []byte) rune {
-	return rune(input[0] << 24 | input[1] << 16 | input[2] << 8 | input[3])
+	return rune(input[0]<<24 | input[1]<<16 | input[2]<<8 | input[3])
 }
 
 func decodeUtf32le(input []byte) rune {
-	return rune(input[3] << 24 | input[2] << 16 | input[1] << 8 | input[0])
+	return rune(input[3]<<24 | input[2]<<16 | input[1]<<8 | input[0])
 }
 
 func newRecognizerUtf32be() *recognizerUtf32 {
@@ -68,7 +68,7 @@ func newRecognizerUtf32le() *recognizerUtf32 {
 }
 
 func (r *recognizerUtf32) Match(input *recognizerInput) (output recognizerOutput) {
-	output = recognizerOutput {
+	output = recognizerOutput{
 		Charset: r.name,
 	}
 	hasBom := bytes.HasPrefix(input.raw, r.bom)

@@ -14,6 +14,10 @@ var (
 type recognizerUtf16be struct {
 }
 
+func newRecognizer_utf16be() *recognizerUtf16be {
+	return &recognizerUtf16be{}
+}
+
 func (*recognizerUtf16be) Match(input *recognizerInput) (output recognizerOutput) {
 	output = recognizerOutput{
 		Charset: "UTF-16BE",
@@ -25,6 +29,10 @@ func (*recognizerUtf16be) Match(input *recognizerInput) (output recognizerOutput
 }
 
 type recognizerUtf16le struct {
+}
+
+func newRecognizer_utf16le() *recognizerUtf16le {
+	return &recognizerUtf16le{}
 }
 
 func (*recognizerUtf16le) Match(input *recognizerInput) (output recognizerOutput) {
@@ -51,7 +59,7 @@ func decodeUtf32le(input []byte) rune {
 	return rune(input[3]<<24 | input[2]<<16 | input[1]<<8 | input[0])
 }
 
-func newRecognizerUtf32be() *recognizerUtf32 {
+func newRecognizer_utf32be() *recognizerUtf32 {
 	return &recognizerUtf32{
 		"UTF-32BE",
 		utf32beBom,
@@ -59,7 +67,7 @@ func newRecognizerUtf32be() *recognizerUtf32 {
 	}
 }
 
-func newRecognizerUtf32le() *recognizerUtf32 {
+func newRecognizer_utf32le() *recognizerUtf32 {
 	return &recognizerUtf32{
 		"UTF-32LE",
 		utf32leBom,

@@ -17,11 +17,11 @@ type Detector struct {
 
 // List of charset recognizers
 var recognizers = []recognizer{
-	new(recognizerUtf8),
-	new(recognizerUtf16be),
-	new(recognizerUtf16le),
-	newRecognizerUtf32be(),
-	newRecognizerUtf32le(),
+	newRecognizer_utf8(),
+	newRecognizer_utf16be(),
+	newRecognizer_utf16le(),
+	newRecognizer_utf32be(),
+	newRecognizer_utf32le(),
 	newRecognizer_8859_1_en(),
 	newRecognizer_8859_1_da(),
 	newRecognizer_8859_1_de(),

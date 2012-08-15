@@ -52,9 +52,9 @@ var recognizers = []recognizer{
 	newRecognizer_euc_kr(),
 	newRecognizer_big5(),
 
-	// newRecognizer_2022JP(),
-	// newRecognizer_2022KR(),
-	// newRecognizer_2022CN(),
+	newRecognizer_2022JP(),
+	newRecognizer_2022KR(),
+	newRecognizer_2022CN(),
 
 	newRecognizer_IBM424_he_rtl(),
 	newRecognizer_IBM424_he_ltr(),

@@ -48,15 +48,15 @@ func (*recognizerUtf16le) Match(input *recognizerInput) (output recognizerOutput
 type recognizerUtf32 struct {
 	name       string
 	bom        []byte
-	decodeChar func(input []byte) rune
+	decodeChar func(input []byte) uint32
 }
 
-func decodeUtf32be(input []byte) rune {
-	return rune(input[0]<<24 | input[1]<<16 | input[2]<<8 | input[3])
+func decodeUtf32be(input []byte) uint32 {
+	return uint32(input[0])<<24 | uint32(input[1])<<16 | uint32(input[2])<<8 | uint32(input[3])
 }
 
-func decodeUtf32le(input []byte) rune {
-	return rune(input[3]<<24 | input[2]<<16 | input[1]<<8 | input[0])
+func decodeUtf32le(input []byte) uint32 {
+	return uint32(input[3])<<24 | uint32(input[2])<<16 | uint32(input[1])<<8 | uint32(input[0])
 }
 
 func newRecognizer_utf32be() *recognizerUtf32 {
@@ -82,7 +82,7 @@ func (r *recognizerUtf32) Match(input *recognizerInput) (output recognizerOutput
 	hasBom := bytes.HasPrefix(input.raw, r.bom)
 	var numValid, numInvalid uint32
 	for b := input.raw; len(b) >= 4; b = b[4:] {
-		if c := r.decodeChar(b); c < 0 || c >= 0x10FFFF || (c >= 0xD800 && c <= 0xDFFF) {
+		if c := r.decodeChar(b); c >= 0x10FFFF || (c >= 0xD800 && c <= 0xDFFF) {
 			numInvalid++
 		} else {
 			numValid++

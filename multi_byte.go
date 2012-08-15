@@ -78,7 +78,7 @@ func (r *recognizerMultiByte) matchConfidence(input *recognizerInput) int {
 
 func binarySearch(l []uint16, c uint16) bool {
 	start := 0
-	end := len(l)
+	end := len(l) - 1
 	for start <= end {
 		mid := (start + end) / 2
 		if c == l[mid] {

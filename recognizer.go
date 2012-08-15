@@ -7,22 +7,22 @@ type recognizer interface {
 type recognizerOutput Result
 
 type recognizerInput struct {
-	raw             []byte
-	input           []byte
-	tagStripped     bool
-	byteStats       []int
-	hasC1Bytes      bool
+	raw         []byte
+	input       []byte
+	tagStripped bool
+	byteStats   []int
+	hasC1Bytes  bool
 }
 
 func newRecognizerInput(raw []byte, stripTag bool) *recognizerInput {
 	input, stripped := mayStripInput(raw, stripTag)
 	byteStats := computeByteStats(input)
 	return &recognizerInput{
-		raw:             raw,
-		input:           input,
-		tagStripped:     stripped,
-		byteStats:       byteStats,
-		hasC1Bytes:      computeHasC1Bytes(byteStats),
+		raw:         raw,
+		input:       input,
+		tagStripped: stripped,
+		byteStats:   byteStats,
+		hasC1Bytes:  computeHasC1Bytes(byteStats),
 	}
 }
 

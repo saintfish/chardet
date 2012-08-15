@@ -13,7 +13,7 @@ type Result struct {
 
 type Detector struct {
 	recognizers []recognizer
-	stripTag bool
+	stripTag    bool
 }
 
 // List of charset recognizers

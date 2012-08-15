@@ -13,6 +13,7 @@ type Result struct {
 
 type Detector struct {
 	recognizers []recognizer
+	stripTag bool
 }
 
 // List of charset recognizers
@@ -62,24 +63,28 @@ var recognizers = []recognizer{
 	newRecognizer_IBM420_ar_ltr(),
 }
 
-func NewDetector() *Detector {
-	return &Detector{recognizers}
+func NewTextDetector() *Detector {
+	return &Detector{recognizers, false}
+}
+
+func NewHtmlDetector() *Detector {
+	return &Detector{recognizers, true}
 }
 
 var (
 	NotDetectedError = errors.New("Charset not detected.")
 )
 
-func (d *Detector) DetectBest(b []byte, stripTag bool, declaredCharset string) (r *Result, err error) {
+func (d *Detector) DetectBest(b []byte) (r *Result, err error) {
 	var all []Result
-	if all, err = d.DetectAll(b, stripTag, declaredCharset); err == nil {
+	if all, err = d.DetectAll(b); err == nil {
 		r = &all[0]
 	}
 	return
 }
 
-func (d *Detector) DetectAll(b []byte, stripTag bool, declaredCharset string) ([]Result, error) {
-	input := newRecognizerInput(b, stripTag, declaredCharset)
+func (d *Detector) DetectAll(b []byte) ([]Result, error) {
+	input := newRecognizerInput(b, d.stripTag)
 	outputChan := make(chan recognizerOutput)
 	for _, r := range d.recognizers {
 		go matchHelper(r, input, outputChan)

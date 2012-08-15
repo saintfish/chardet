@@ -46,11 +46,11 @@ var recognizers = []recognizer{
 	newRecognizer_KOI8_R(),
 	newRecognizer_8859_9_tr(),
 
-	// newRecognizer_sjis(),
-	// newRecognizer_gb_18030(),
-	// newRecognizer_euc_jp(),
-	// newRecognizer_euc_kr(),
-	// newRecognizer_big5(),
+	newRecognizer_sjis(),
+	newRecognizer_gb_18030(),
+	newRecognizer_euc_jp(),
+	newRecognizer_euc_kr(),
+	newRecognizer_big5(),
 
 	// newRecognizer_2022JP(),
 	// newRecognizer_2022KR(),

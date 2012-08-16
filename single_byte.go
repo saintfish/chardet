@@ -41,7 +41,7 @@ func newNgramState(table *[64]uint32) *ngramState {
 func (s *ngramState) AddByte(b byte) {
 	const ngramMask = 0xFFFFFF
 	if !(b == 0x20 && s.ignoreSpace) {
-		s.ngram = (s.ngram << 8) | uint32(b)&ngramMask
+		s.ngram = ((s.ngram << 8) | uint32(b)) & ngramMask
 		s.ignoreSpace = (s.ngram == 0x20)
 		s.ngramCount++
 		if s.lookup() {

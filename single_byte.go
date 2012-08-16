@@ -89,7 +89,7 @@ func (s *ngramState) lookup() bool {
 
 func (r *recognizerSingleByte) parseNgram(input []byte) int {
 	state := newNgramState(r.ngram)
-	for inChar := range input {
+	for _, inChar := range input {
 		c := r.charMap[inChar]
 		if c != 0 {
 			state.AddByte(c)

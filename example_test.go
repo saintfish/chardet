@@ -1,7 +1,8 @@
-package chardet
+package chardet_test
 
 import (
 	"fmt"
+	"github.com/saintfish/chardet"
 )
 
 var (
@@ -13,7 +14,7 @@ var (
 )
 
 func ExampleTextDetector() {
-	detector := NewTextDetector()
+	detector := chardet.NewTextDetector()
 	result, err := detector.DetectBest(zh_gb18030_text)
 	if err == nil {
 		fmt.Printf(

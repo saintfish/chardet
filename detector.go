@@ -1,3 +1,4 @@
+// Package chardet ports character set detection from ICU.
 package chardet
 
 import (
@@ -5,12 +6,17 @@ import (
 	"sort"
 )
 
+// Result contains all the information that charset detector gives.
 type Result struct {
-	Charset    string
-	Language   string
+	// IANA name of the detected charset.
+	Charset string
+	// IANA name of the detected language. It may be empty for some charsets.
+	Language string
+	// Confidence of the Result. Scale from 1 to 100. The bigger, the more confident.
 	Confidence int
 }
 
+// Detector implements charset detection.
 type Detector struct {
 	recognizers []recognizer
 	stripTag    bool
@@ -63,10 +69,12 @@ var recognizers = []recognizer{
 	newRecognizer_IBM420_ar_ltr(),
 }
 
+// NewTextDetector creates a Detector for plain text.
 func NewTextDetector() *Detector {
 	return &Detector{recognizers, false}
 }
 
+// NewHtmlDetector creates a Detector for Html.
 func NewHtmlDetector() *Detector {
 	return &Detector{recognizers, true}
 }
@@ -75,6 +83,7 @@ var (
 	NotDetectedError = errors.New("Charset not detected.")
 )
 
+// DetectBest returns the Result with highest Confidence.
 func (d *Detector) DetectBest(b []byte) (r *Result, err error) {
 	var all []Result
 	if all, err = d.DetectAll(b); err == nil {
@@ -83,6 +92,7 @@ func (d *Detector) DetectBest(b []byte) (r *Result, err error) {
 	return
 }
 
+// DetectAll returns all Results which have non-zero Confidence. The Results are sorted by Confidence in descending order.
 func (d *Detector) DetectAll(b []byte) ([]Result, error) {
 	input := newRecognizerInput(b, d.stripTag)
 	outputChan := make(chan recognizerOutput)

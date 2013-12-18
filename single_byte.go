@@ -323,16 +323,16 @@ func newRecognizer_8859_2(language string, ngram *[64]uint32) *recognizerSingleB
 }
 
 func newRecognizer_8859_2_cs() *recognizerSingleByte {
-	return newRecognizer_8859_1("cs", &ngrams_8859_2_cs)
+	return newRecognizer_8859_2("cs", &ngrams_8859_2_cs)
 }
 func newRecognizer_8859_2_hu() *recognizerSingleByte {
-	return newRecognizer_8859_1("hu", &ngrams_8859_2_hu)
+	return newRecognizer_8859_2("hu", &ngrams_8859_2_hu)
 }
 func newRecognizer_8859_2_pl() *recognizerSingleByte {
-	return newRecognizer_8859_1("pl", &ngrams_8859_2_pl)
+	return newRecognizer_8859_2("pl", &ngrams_8859_2_pl)
 }
 func newRecognizer_8859_2_ro() *recognizerSingleByte {
-	return newRecognizer_8859_1("ro", &ngrams_8859_2_ro)
+	return newRecognizer_8859_2("ro", &ngrams_8859_2_ro)
 }
 
 var charMap_8859_5 = [256]byte{

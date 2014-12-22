@@ -337,7 +337,7 @@ var commonChars_gb_18030 = []uint16{
 
 func newRecognizer_gb_18030() *recognizerMultiByte {
 	return &recognizerMultiByte{
-		"GB-18030",
+		"GB18030",
 		"zh",
 		charDecoder_gb_18030{},
 		commonChars_gb_18030,

@@ -23,5 +23,5 @@ func ExampleTextDetector() {
 			result.Language)
 	}
 	// Output:
-	// Detected charset is GB-18030, language is zh
+	// Detected charset is GB18030, language is zh
 }

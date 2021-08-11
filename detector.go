@@ -99,7 +99,7 @@ func (d *Detector) DetectAll(b []byte) ([]Result, error) {
 	for _, r := range d.recognizers {
 		go matchHelper(r, input, outputChan)
 	}
-	outputs := make([]recognizerOutput, 0, len(d.recognizers))
+	outputs := make(recognizerOutputs, 0, len(d.recognizers))
 	for i := 0; i < len(d.recognizers); i++ {
 		o := <-outputChan
 		if o.Confidence > 0 {
@@ -110,7 +110,7 @@ func (d *Detector) DetectAll(b []byte) ([]Result, error) {
 		return nil, NotDetectedError
 	}
 
-	sort.Sort(recognizerOutputs(outputs))
+	sort.Sort(outputs)
 	dedupOutputs := make([]Result, 0, len(outputs))
 	foundCharsets := make(map[string]struct{}, len(outputs))
 	for _, o := range outputs {
